@@ -3,7 +3,7 @@ layout: default
 title:  Home
 ---
 
-Source code: https://github.com/USER/PROJECT (_fix this_)
+Source code: https://github.com/nhanngyn2004/cs175-group5 (_fix this_)
 
 Reports:
 
