@@ -3,38 +3,14 @@ layout: default
 title:  Home
 ---
 
-Source code: https://github.com/nhanngyn2004/cs175-group5 (_fix this_)
+## About This Project
 
-Reports:
+This project focuses on training a reinforcement learning agent to navigate a simplified Minecraft environment. The agent (Steve) must learn to navigate from a starting platform to a goal location containing a diamond, while avoiding lava/void areas.
+
+**Source code**: [https://github.com/nhanngyn2004/cs175-group5](https://github.com/nhanngyn2004/cs175-group5)
+
+## Project Reports
 
 - [Proposal](proposal.html)
 - [Status](status.html)
 - [Final](final.html)
-
-What's Markdown (`.md`)?
-
-Markdown is markup that lets you write hypertext (HTML) documents
-in easy-to-read and easy-to-write plain text.
-No angle brackets `<></>` required for
-paragraphs, lists, blockquotes, tables, etc.
-
-
-This is a paragraph (in Markdown). Some more
-text here.
-
-This is another paragraph.
-
-This is a list:
-
-- Orange
-- Apple
-- Blueberry
-
-$$x^2 = y^2$$
-
-
-Just getting started with Markdown?
-See the [HTML <-> Markdown Quick Reference (Cheat Sheet)][quickref].
-
-
-[quickref]: https://github.com/mundimark/quickrefs/blob/master/HTML.md
