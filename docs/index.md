@@ -3,14 +3,22 @@ layout: default
 title:  Home
 ---
 
-## About This Project
+## About RLCraft
 
-This project focuses on training a reinforcement learning agent to navigate a simplified Minecraft environment. The agent (Steve) must learn to navigate from a starting platform to a goal location containing a diamond, while avoiding lava/void areas.
+This project investigates reinforcement learning by training an agent (Steve) to navigate a simplified Minecraft environment. The agent must reach a diamond on an elevated platform while avoiding falling into lava. We study how different design choices—reward structures, state representations, and learning algorithms—affect learning behavior.
 
-**Source code**: [https://github.com/nhanngyn2004/cs175-group5](https://github.com/nhanngyn2004/cs175-group5)
+## Source Code
 
-## Project Reports
+[GitHub Repository](https://github.com/nhanngyn2004/cs175-group5)
+
+## Reports
 
 - [Proposal](proposal.html)
 - [Status](status.html)
 - [Final](final.html)
+
+## Resources
+
+- [Project Malmo](https://github.com/microsoft/malmo) - Minecraft AI research platform
+- [MineRL](https://minerl.io/) - Minecraft reinforcement learning competition
+- [OpenAI Gym](https://gymnasium.farama.org/) - RL environment toolkit

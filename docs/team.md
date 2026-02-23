@@ -5,13 +5,17 @@ title:  Team
 
 # {{ page.title }}
 
-## Team Members
+## Nhan Nguyen
+***UCI Net ID***: nhanhn1
 
-### USER 1
-**UCI Net ID**: nhanhn1
+[LinkedIn](https://www.linkedin.com/in/nhanngyn2004/)
 
-### USER 2
-**UCI Net ID**: patilaa1
+## Anshul Patil
+***UCI Net ID***: patilaa1
 
-### USER 3
-**UCI Net ID**: taylott3
+[LinkedIn](https://www.linkedin.com/in/anshulapatil/)
+
+## Taylor Tran
+***UCI Net ID***: taylott3
+
+[LinkedIn](https://www.linkedin.com/in/taylortraan/)
