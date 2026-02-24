@@ -5,7 +5,7 @@ title:  Home
 
 ## About Project Malmo
 
-This project investigates reinforcement learning by training an agent (Steve) to navigate a simplified Minecraft environment. The agent must reach a diamond on an elevated platform while avoiding falling into lava. We study how different design choices—reward structures, state representations, and learning algorithms—affect learning behavior.
+This project investigates reinforcement learning by training an agent (Steve) to navigate a simplified Minecraft environment. The agent must reach a diamond on an elevated platform while avoiding falling into lava. We study how different design choices, such as reward structures, state representations, and learning algorithms, affect learning behavior.
 
 ## Source Code
 
