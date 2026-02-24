@@ -27,4 +27,10 @@ This project investigates reinforcement learning by training an agent (Steve) to
 
 ![Random Agent Baseline](assets/baseline_plots.png)
 
-*Random policy baseline: ~2% success rate, demonstrating that the task requires learning to solve reliably.*
+Over 50 episodes, the random policy agent received a total reward of -1.0 in nearly every episode, indicating the agent fell off the platform almost every time. One episode resulted in a reward of 0.0, suggesting the agent survived until the step limit without dying or collecting the diamond. With no learning mechanism, the agent shows no improvement over time, confirming this as a true baseline for comparison.
+
+## Tabular Q-Learning Results
+
+![Tabular Q-Learning](assets/tabular_q_learning_plot.png)
+
+After 5 episodes of tabular Q-learning, all episodes terminated with a reward of -1.0, meaning the agent fell off the platform every time. This is expected behavior at such an early stage of training, as the Q-table has had minimal state visitation and the agent's behavior is effectively random. These results establish a starting point; meaningful learning is only expected to emerge after significantly more episodes.
