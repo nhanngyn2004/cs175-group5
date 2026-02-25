@@ -34,8 +34,14 @@ We evaluated performance using total reward per episode, success rate (diamond r
 
 ### Learning Rate Comparison
 
+Smith (2017) uses an initial learning rate of 0.1 as a baseline in evaluating training performance across multiple architectures, treating it as a standard reference point for comparison against alternative learning rate strategies. The study demonstrates that learning rate is a highly sensitive hyperparameter and that performance can vary significantly as it changes. Because 0.1 is used in the literature as a conventional baseline value for iterative optimization, we adopt α = 0.1 as a stable and principled reference point in our experiments before evaluating more aggressive alternatives such as α = 0.5. 
+
+Source: Smith, Leslie N. "Cyclical learning rates for training neural networks." 2017 IEEE winter conference on applications of computer vision (WACV). IEEE, 2017.
+
 Under sparse rewards, the configuration with α = 0.5 achieved a higher success rate (32.5%) than α = 0.1 under the shaped reward configuration, with correspondingly higher mean reward. Although α = 0.5 is theoretically more prone to instability due to larger update magnitudes, we did not observe major divergence within 200 episodes. The relatively modest difference between learning rates alone suggests that 200 episodes with a single seed may not be sufficient to expose long-term convergence differences. The results remain noisy and influenced by stochastic exploration.
 
+
+ 
 **[Insert Figure 1 here: Total reward per episode plot for α = 0.5 (sparse reward)]**
 
 The reward curve shows increasing occurrences of successful (+1) episodes in later training, indicating that the agent is learning a policy that occasionally retrieves the diamond. The distribution histogram reflects a mixture of failures and successes, consistent with partial convergence.
