@@ -2,6 +2,9 @@
 layout: default
 title: Status
 ---
+## LINK TO PROJECT VIDEO
+
+https://www.youtube.com/watch?v=SsZ2_gHq7lU
 
 ## Project Summary
 
