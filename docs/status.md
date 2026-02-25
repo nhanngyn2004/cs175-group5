@@ -62,8 +62,6 @@ This experiment demonstrates an important reinforcement learning principle: rewa
 
 ### Quantitative Comparison
 
-**[Insert Table 1 here: Performance Comparison Table]**
-
 | Configuration | Success Rate | Mean Reward | Mean Steps | Failures |
 |---------------|-------------|-------------|------------|----------|
 | α = 0.5 (Sparse) | 32.5% | -0.33 | 16.4 | 129 |
