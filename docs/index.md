@@ -31,6 +31,8 @@ Over 50 episodes, the random policy agent received a total reward of -1.0 in nea
 
 ## Tabular Q-Learning Results
 
-![Tabular Q-Learning](assets/tabular_q_learning_plot.png)
+![Tabular Q-Learning](assets/fig1.png)
 
-After 5 episodes of tabular Q-learning, all episodes terminated with a reward of -1.0, meaning the agent fell off the platform every time. This is expected behavior at such an early stage of training, as the Q-table has had minimal state visitation and the agent's behavior is effectively random. These results establish a starting point; meaningful learning is only expected to emerge after significantly more episodes.
+After 200 episodes of tabular Q-learning with α = 0.5 and sparse rewards, the agent achieved a 32.5% success rate, significantly outperforming the random baseline (~2%). The learning curve shows the agent transitioning from mostly failures early in training to consistent successes after approximately 100 episodes, demonstrating clear learning behavior.
+
+See the [Status Report](status.html) for detailed analysis of learning rate and reward shaping experiments.

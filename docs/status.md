@@ -42,7 +42,7 @@ Under sparse rewards, the configuration with α = 0.5 achieved a higher success 
 
 
  
-**[Insert Figure 1 here: Total reward per episode plot for α = 0.5 (sparse reward)]**
+![Figure 1: Total reward per episode for α = 0.5 (sparse reward)](assets/fig1.png)
 
 The reward curve shows increasing occurrences of successful (+1) episodes in later training, indicating that the agent is learning a policy that occasionally retrieves the diamond. The distribution histogram reflects a mixture of failures and successes, consistent with partial convergence.
 
@@ -52,7 +52,7 @@ The reward curve shows increasing occurrences of successful (+1) episodes in lat
 
 When introducing the step-penalty reward scheme (−0.01 per time step), performance decreased substantially. The success rate dropped to 16.5%, mean episode length decreased to approximately 9.7 steps, and the number of falls increased significantly compared to the sparse reward configuration.
 
-**[Insert Figure 2 here: Total reward per episode plot for α = 0.1 with step penalty]**
+![Figure 2: Total reward per episode for α = 0.1 with step penalty](assets/fig2.png)
 
 The reward distribution is heavily concentrated around negative values, indicating frequent early termination. Because each additional time step incurred a small negative reward, the agent was implicitly incentivized to end episodes quickly. This unintentionally made short, risky behavior (rushing and falling) relatively less costly than longer, cautious trajectories aimed at reaching the diamond.
 
