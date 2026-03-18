@@ -42,7 +42,7 @@ The reward function is sparse and terminal — rewards are only given when an ep
 - **−1.0** — agent falls off the platform (failure_fell_off_platform)
 - **0.0** — episode times out (timeout_max_steps_reached)
 
-No intermediate rewards are given for steps taken. This is intentional for the baseline experiments — it gives us a clean signal to compare against shaped reward variants in future experiments.
+No intermediate rewards are given for steps taken. This is intentional for the baseline experiments, as it gives us a clean signal to compare against shaped reward variants in future experiments.
 
 ### Random Baseline Agent
 
@@ -52,11 +52,11 @@ The first agent we evaluate is a random policy. At every step it selects one of 
 action = randint(0, 3)
 ```
 
-This agent implements only `select_action(obs, info)` and has no `observe()` method, meaning the training harness never calls any update step. It is the canonical no-learning baseline — any learning algorithm should eventually surpass it.
+This agent implements only `select_action(obs, info)` and has no `observe()` method, meaning the training harness never calls any update step. It is the canonical no-learning baseline, where any learning algorithm should eventually surpass it.
 
 ### Training Harness
 
-All agents are run through a shared episode loop in `harness/loop.py`. The loop calls `env.reset()` at the start of each episode, then repeatedly calls `agent.select_action()` and `env.step()` until `done=True`. If the agent implements an `observe(obs, action, reward, next_obs, done, info)` method, the harness calls it after each step to allow learning agents to update. Per-episode statistics — total reward, steps, success, termination reason, and seed — are recorded for every episode.
+All agents are run through a shared episode loop in `harness/loop.py`. The loop calls `env.reset()` at the start of each episode, then repeatedly calls `agent.select_action()` and `env.step()` until `done=True`. If the agent implements an `observe(obs, action, reward, next_obs, done, info)` method, the harness calls it after each step to allow learning agents to update. Per-episode statistics, total reward, steps, success, termination reason, and seed, are recorded for every episode.
 
 ### Hyperparameters
 
@@ -69,3 +69,47 @@ All agents are run through a shared episode loop in `harness/loop.py`. The loop 
 | seed | 42 | Fixed for reproducibility |
 
 Configurations are defined in JSON files under `configs/` (e.g. `configs/random_baseline.json`) and passed to the run script, making all experiments fully reproducible.
+
+
+## Evaluation 
+
+
+
+
+
+
+
+## Resources Used
+
+This project relies on a small set of tools and references to implement and evaluate reinforcement-learning behavior in a Minecraft-based environment.
+
+### Libraries and Frameworks
+
+- **Project Malmo (`MalmoPython`, Microsoft Research)**: The primary RL environment and API used to run missions in Minecraft and obtain observations and rewards. It enabled us to study agent behavior in a controlled task setting.
+- **matplotlib (optional)**: Used to produce simple visual summaries of results (e.g., reward trends across episodes) for reporting.
+
+### Platforms and Environment
+
+- **Docker + `andkram/malmo` image**: Provided a consistent runtime with Minecraft, Malmo, and Python preconfigured. This reduced setup overhead and improved reproducibility across machines.
+- **Minecraft (Malmo mod)**: Served as the simulator where the agent navigates a platform to reach the goal (diamond pickup). It provided the interactive dynamics required for the task.
+- **noVNC / Jupyter Notebook**: Used for visualization and interactive testing (monitoring Minecraft, running small exploratory checks) during development.
+
+### Algorithms and Conceptual Resources
+
+- **Tabular Q-learning**: Implemented using the standard Bellman update with epsilon-greedy exploration to learn an action-value table over discrete states.
+- **Baseline policies (random and fixed-direction)**: Used as non-learning reference policies to contextualize learning performance.
+- **Gym-style environment design (conceptual)**: Used as an organizing interface (`reset`/`step`) for consistent experiments; the project does not depend on the `gym` package.
+
+### Key Python Utilities
+
+- **`json`**: Used for reading experiment configs and handling structured inputs/outputs.
+- **`random`**: Used for baseline action selection and exploration in Q-learning.
+- **`argparse`**: Used to provide clear command-line interfaces for running experiments.
+
+### AI Tools
+
+- **ChatGPT and Cursor (AI assistants)**: Used to clarify RL/Malmo concepts, refine report-style wording, and suggest boilerplate patterns (e.g., CLI/logging structure). Their influence appears primarily in documentation phrasing, script structure, and minor helper code; the final algorithms, environment setup, and results were implemented and verified by the project team.
+
+### Copied/Adapted Code
+
+- **External code reuse**: No external code was directly copied; implementations follow standard reinforcement-learning and Project Malmo usage patterns.
