@@ -166,7 +166,6 @@ We next evaluate how learning improves performance under different reward struct
   <img src="assets/sparse_lr0.5.png" width="70%">
 </p>
 
-
 Under the sparse reward configuration, both learning rates show improvement over time, as the agent gradually learns to reach the diamond. The α = 0.1 setting produces smoother and more stable learning, while α = 0.5 exhibits greater variability due to larger update steps.
 
 These trends suggest that while both configurations are capable of learning, stability plays a critical role in long-term performance. The smoother curves observed with α = 0.1 indicate more consistent policy improvement, whereas α = 0.5 reacts more strongly to individual experiences, leading to fluctuations in performance.
