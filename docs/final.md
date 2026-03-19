@@ -158,10 +158,14 @@ We next evaluate how learning improves performance under different reward struct
 
 #### Sparse Reward
 
+<p align="center">
+  <img src="assets/spare_lr0.1.png" width="83%" style="margin-left: 9%;">
+</p>
 
-![Sparse Reward α=0.1](assets/spare_lr0.1.png)
+<p align="center">
+  <img src="assets/sparse_lr0.5.png" width="70%">
+</p>
 
-<img src="assets/sparse_lr0.5.png" width="85%">
 
 Under the sparse reward configuration, both learning rates show improvement over time, as the agent gradually learns to reach the diamond. The α = 0.1 setting produces smoother and more stable learning, while α = 0.5 exhibits greater variability due to larger update steps.
 
