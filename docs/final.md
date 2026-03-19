@@ -208,6 +208,16 @@ This tradeoff reflects a fundamental aspect of reinforcement learning, where lar
 
 ---
 
+### Main Trade Offs
+
+![Overall Model Comparison](assets/table_comparison.png)
+
+The results reveal a clear tradeoff between accuracy and efficiency across the two reward configurations. The sparse reward model achieved a higher success rate (32.5%), indicating that it more reliably learned how to reach the objective. This suggests that, despite slower learning and longer episodes, the agent was able to develop a more effective and goal-oriented policy.
+
+In contrast, the step penalty model exhibited lower accuracy, with a success rate of only 16.5%, but demonstrated greater efficiency in terms of episode length (9.7 steps on average compared to 16.4 under sparse rewards). However, this apparent efficiency is misleading. The shorter episodes are largely due to premature termination from falling, rather than the agent successfully navigating to the goal. As a result, the step penalty configuration encourages faster but less reliable behavior.
+
+Overall, these findings highlight that while reward shaping can improve efficiency in terms of shorter episodes, it may come at the cost of reduced accuracy and suboptimal policy learning. In this task, the sparse reward structure ultimately leads to more successful outcomes, even if it requires more time for the agent to learn and execute its strategy.
+
 ### Failure Modes
 
 Despite improvements in learning, the agent exhibits several consistent failure modes. In many episodes, the agent falls off the platform near the goal, suggesting that it has learned a risky but direct policy. Under the step-penalty configuration, the agent frequently terminates episodes early, prioritizing shorter trajectories over successful completion.
@@ -231,7 +241,6 @@ Taken together, our results show that reward design has a greater impact on agen
 The sparse reward setting, although more challenging, ultimately leads to more reliable success once the agent discovers an effective strategy. In contrast, the step-penalty setting encourages faster but riskier behavior, often resulting in premature failure.
 
 Overall, the agent is able to learn a policy that improves performance over the baseline, but does not achieve fully stable or optimal behavior within the given training horizon. These findings highlight the importance of carefully designing reward functions in reinforcement learning tasks.
-
 
 
 
