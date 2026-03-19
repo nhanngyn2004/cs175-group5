@@ -172,7 +172,7 @@ These trends suggest that while both configurations are capable of learning, sta
 #### Step Penalty Reward
 
 <p align="center">
-  <img src="assets/step_lr0.1.png" width="85%">
+  <img src="assets/step_lr0.1.png" width="85%" style="margin-left: 7%;">
 </p>
 
 <p align="center">
