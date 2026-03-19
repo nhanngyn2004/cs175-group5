@@ -9,7 +9,8 @@ Reinforcement learning is often evaluated purely on final performance. Did the a
 
 The task we designed is deliberately simple: a reinforcement learning agent is placed at one end of a narrow obsidian platform (5 blocks wide, 10 blocks long) elevated above a lava field, with a single diamond placed at the far end. The agent must navigate to the diamond without falling off the edge.
 
-![Environment Setup](assets/image.png) Every episode ends one of three ways. The agent picks up the diamond (success), falls off the platform into the lava (failure), or runs out of time (timeout). This setup may sound straightforward, but it is not trivial. The platform is narrow enough that random movement frequently leads to falling, and the agent receives no guidance about which direction to move. Without a learning algorithm, the agent has no way to distinguish a good move from a bad one. A purely random agent succeeds only about 33% of the time by chance, meaning there is real room for a learning agent to improve, but also real risk of failure if design choices are poorly made.
+![Environment Setup](assets/image.png) 
+Every episode ends one of three ways. The agent picks up the diamond (success), falls off the platform into the lava (failure), or runs out of time (timeout). This setup may sound straightforward, but it is not trivial. The platform is narrow enough that random movement frequently leads to falling, and the agent receives no guidance about which direction to move. Without a learning algorithm, the agent has no way to distinguish a good move from a bad one. A purely random agent succeeds only about 33% of the time by chance, meaning there is real room for a learning agent to improve, but also real risk of failure if design choices are poorly made.
 
 This is where the challenge lies. Decisions like how rewards are structured, what information the agent can observe, and which learning algorithm is used all fundamentally change what the agent experiences and how it updates its behavior.
 
@@ -75,6 +76,53 @@ All agents are run through a shared episode loop in `harness/loop.py`. The loop 
 | seed | 42 | Fixed for reproducibility |
 
 Configurations are defined in JSON files under `configs/` (e.g. `configs/random_baseline.json`) and passed to the run script, making all experiments fully reproducible.
+
+### Tabular Q-Learning Algorithm
+
+We implemented standard tabular Q-learning, a model-free reinforcement learning algorithm that learns an action-value function Q(s,a) representing the expected cumulative reward from taking action a in state s and following the optimal policy thereafter (Sutton & Barto, 2018). The Q-table is updated after each transition using the Bellman equation:
+
+**Q(s,a) ← Q(s,a) + α [ r + γ max_a′ Q(s′,a′) − Q(s,a) ]**
+
+where:
+- **α (learning rate)**: Controls how much new information overwrites the existing Q-value estimate
+- **γ (discount factor)**: Set to 0.99, determines the importance of future rewards relative to immediate rewards
+- **r**: The immediate reward received after taking action a in state s
+- **max_a′ Q(s′,a′)**: The maximum Q-value achievable from the next state s′
+
+The Q-table is initialized to zeros for all state-action pairs. States are discretized as (x, z) grid positions, yielding a manageable state space of approximately 50 unique states (5 × 10 platform).
+
+### Exploration Strategy
+
+Balancing exploration and exploitation is critical in reinforcement learning. We use an **epsilon-greedy policy** with linear decay:
+
+- **Initial ε = 0.5**: The agent explores randomly 50% of the time at the start of training
+- **Final ε = 0.05**: Exploration decreases to 5% by the end of training
+- **Decay schedule**: Linear decay over 150 episodes
+
+At each step, the agent selects a random action with probability ε, or the action with the highest Q-value with probability (1 − ε). This strategy ensures sufficient exploration early in training while shifting toward exploitation as the Q-values converge.
+
+### Hyperparameter Experiments
+
+To study how design choices affect learning, we systematically varied two key factors:
+
+**Learning Rate Comparison (α)**
+
+Smith (2017) establishes α = 0.1 as a standard baseline for iterative optimization, noting that learning rate is a highly sensitive hyperparameter. We compare:
+
+| Learning Rate | Update Magnitude | Expected Behavior |
+|--------------|------------------|-------------------|
+| α = 0.1 | 10% new, 90% retained | Slower, more stable convergence |
+| α = 0.5 | 50% new, 50% retained | Faster adaptation, higher variance |
+
+**Reward Shaping Comparison**
+
+| Reward Scheme | Diamond | Fall | Step | Design Intent |
+|---------------|---------|------|------|---------------|
+| Sparse | +1.0 | −1.0 | 0.0 | Clean signal, delayed feedback |
+| Step Penalty | +1.0 | −1.0 | −0.01 | Encourage efficiency |
+
+The step penalty was intended to discourage slow, meandering behavior. However, as documented in the Evaluation section, this shaping inadvertently incentivized risky, short-duration episodes.
+
 
 
 ## Evaluation 
