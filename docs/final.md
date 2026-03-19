@@ -142,9 +142,11 @@ We first examine the behavior of a baseline agent with no learning.
 
 ![Baseline Performance](assets/baseline_plots.png)
 
-The baseline agent performs poorly, with highly inconsistent rewards and frequent failures. This establishes a reference point, showing that without learning, the agent is unable to consistently reach the goal and performs close to random behavior.
+The baseline agent performs poorly, with highly inconsistent rewards and frequent failures. The reward signal fluctuates randomly across episodes, with no clear upward trend, indicating the absence of learning or policy improvement. Most episodes result in failure, and successful outcomes occur only sporadically due to chance rather than intentional behavior.
 
-This comparison is important because it confirms that any improvements observed in later experiments are due to learning rather than chance. It also highlights the difficulty of the environment, as even random exploration rarely leads to successful outcomes.
+This establishes a critical reference point, demonstrating that without learning, the agent is unable to consistently reach the goal and behaves essentially randomly. The lack of structure in the reward trajectory highlights that the environment is non-trivial and requires meaningful policy updates to achieve success.
+
+This comparison is important because it confirms that any improvements observed in later experiments are attributable to the learning algorithm rather than stochastic exploration. It also underscores the difficulty of the task, as random exploration alone rarely produces successful outcomes, reinforcing the need for effective learning dynamics and reward design.
 
 ---
 
@@ -154,7 +156,9 @@ Smith (2017) uses an initial learning rate of 0.1 as a baseline in evaluating tr
 
 Source: Smith, Leslie N. "Cyclical learning rates for training neural networks." 2017 IEEE winter conference on applications of computer vision (WACV). IEEE, 2017.
 
-We next evaluate how learning improves performance under different reward structures and learning rates.
+We next evaluate how learning improves performance under different reward structures and learning rates, focusing on both convergence behavior and policy stability.
+
+---
 
 #### Sparse Reward
 
@@ -170,9 +174,13 @@ We next evaluate how learning improves performance under different reward struct
   <img src="assets/sparse_lr0.5.png" width="70%">
 </p>
 
-Under the sparse reward configuration, both learning rates show improvement over time, as the agent gradually learns to reach the diamond. The α = 0.1 setting produces smoother and more stable learning, while α = 0.5 exhibits greater variability due to larger update steps.
+Under the sparse reward configuration, both learning rates show measurable improvement over time, as the agent gradually learns to navigate toward the diamond. Early episodes are dominated by failures, but over time, successful (+1) outcomes become more frequent, indicating that the agent is learning a policy that occasionally achieves the objective.
 
-These trends suggest that while both configurations are capable of learning, stability plays a critical role in long-term performance. The smoother curves observed with α = 0.1 indicate more consistent policy improvement, whereas α = 0.5 reacts more strongly to individual experiences, leading to fluctuations in performance.
+The α = 0.1 setting produces smoother and more stable learning dynamics. The reward progression exhibits a gradual upward trend with fewer abrupt fluctuations, suggesting that updates to the Q-values are more controlled and less sensitive to individual experiences. This allows the agent to incrementally refine its policy based on accumulated experience.
+
+In contrast, α = 0.5 exhibits greater variability due to larger update steps. While this configuration sometimes achieves faster short-term improvements, it also shows noticeable oscillations in performance. These fluctuations reflect the agent overreacting to recent rewards, which can destabilize learning and lead to inconsistent policy updates.
+
+These trends suggest that while both configurations are capable of learning under sparse rewards, stability plays a critical role in long-term performance. The smoother progression observed with α = 0.1 indicates more reliable convergence toward a useful policy, whereas α = 0.5 introduces noise into the learning process, making performance less predictable. This highlights the importance of selecting an appropriate learning rate to balance convergence speed and stability in reinforcement learning.
 
 ---
 
@@ -190,9 +198,13 @@ These trends suggest that while both configurations are capable of learning, sta
   <img src="assets/step_lr0.5.png" width="70%">
 </p>
 
-Under the step-penalty configuration, performance is generally lower and more inconsistent. While the agent receives more frequent feedback, the negative reward at each step encourages shorter episodes, often leading to premature failure rather than successful completion of the task.
+Under the step-penalty configuration, performance is generally lower and more inconsistent across both learning rates. Although the agent receives more frequent feedback due to the per-step penalty, this additional signal does not translate into improved task performance.
 
-This indicates that more frequent feedback does not necessarily improve learning outcomes. Instead, the added penalty shifts the objective toward minimizing time steps rather than maximizing success, which can lead to unintended and suboptimal behaviors.
+Instead, the negative reward at each time step shifts the optimization objective. Rather than encouraging the agent to reach the goal, the reward structure incentivizes minimizing the number of steps taken. As a result, the agent often adopts strategies that terminate episodes quickly, such as taking risky actions that lead to falling off the platform.
+
+While α = 0.1 again produces relatively smoother behavior compared to α = 0.5, the overall performance remains poor in both cases. Even when occasional successes occur, they are less frequent and less consistent than in the sparse reward setting. The α = 0.5 configuration further amplifies instability, with more erratic reward patterns and less reliable learning.
+
+This indicates that more frequent feedback does not necessarily improve learning outcomes. In this case, the additional penalty distorts the reward signal, leading the agent to prioritize short-term avoidance of penalties rather than long-term success. This demonstrates how improperly calibrated reward shaping can unintentionally bias the learned policy toward undesirable behaviors.
 
 ---
 
@@ -202,17 +214,23 @@ To better understand behavioral differences, we compare episode lengths across r
 
 ![Episode Length Comparison](assets/episode_lengths.png)
 
-Episodes under the sparse reward configuration tend to be longer, reflecting more exploration before success or failure. In contrast, episodes under the step-penalty configuration are significantly shorter, indicating that the agent is incentivized to terminate episodes quickly.
+Episodes under the sparse reward configuration tend to be longer, reflecting more extensive exploration before reaching either success or failure. This longer duration suggests that the agent is willing to take additional steps in order to discover successful trajectories, even though rewards are sparse.
 
-Importantly, shorter episodes do not necessarily indicate better performance. In this case, they often correspond to the agent falling off the platform early rather than efficiently reaching the goal. This difference highlights how the reward function directly influences the agent’s strategy, leading to more aggressive but less reliable behavior under step penalties.
+In contrast, episodes under the step-penalty configuration are significantly shorter. At first glance, this might suggest increased efficiency; however, a closer examination reveals that this reduction in episode length is largely due to early termination from failure rather than improved navigation.
+
+Importantly, shorter episodes do not necessarily indicate better performance. In this case, they often correspond to the agent falling off the platform quickly, rather than efficiently reaching the goal. The step penalty effectively discourages prolonged exploration, causing the agent to favor quick but risky actions.
+
+This difference highlights how the reward function directly influences the agent’s strategy. Under sparse rewards, the agent explores more thoroughly and occasionally discovers successful paths. Under step penalties, the agent adopts a more aggressive strategy that sacrifices reliability for shorter episode duration, resulting in poorer overall performance.
 
 ---
 
 ### Learning Rate Effects
 
-Across both reward settings, the learning rate plays a key role in stability. The lower learning rate (α = 0.1) results in more consistent and stable performance, while α = 0.5 leads to faster but more volatile learning.
+Across both reward settings, the learning rate plays a key role in determining the stability and consistency of learning. The lower learning rate (α = 0.1) results in smoother and more stable performance, with gradual improvements over time. This suggests that smaller updates allow the agent to better integrate information from multiple experiences, leading to more reliable policy refinement.
 
-This tradeoff reflects a fundamental aspect of reinforcement learning, where larger updates can accelerate learning but reduce stability, especially in environments with stochastic transitions. As a result, α = 0.1 provides more reliable improvement over time, even if it learns more slowly in the early stages.
+In contrast, α = 0.5 leads to faster but more volatile learning. Larger updates cause the agent to react more strongly to recent rewards, which can accelerate early progress but also introduce instability. This is particularly evident in environments with stochastic outcomes, where overreacting to individual experiences can disrupt convergence.
+
+This tradeoff reflects a fundamental aspect of reinforcement learning: balancing learning speed with stability. While higher learning rates can enable rapid adaptation, they often come at the cost of increased variance and reduced reliability. In our experiments, α = 0.1 consistently provides more stable and dependable performance across both reward structures, making it a more suitable choice for this task.
 
 ---
 
