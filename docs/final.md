@@ -158,9 +158,13 @@ We next evaluate how learning improves performance under different reward struct
 
 #### Sparse Reward
 
+##### Learning Rate - 0.1
+
 <p align="center">
   <img src="assets/spare_lr0.1.png" width="83%" style="margin-left: 9%;">
 </p>
+
+##### Learning Rate - 0.5
 
 <p align="center">
   <img src="assets/sparse_lr0.5.png" width="70%">
@@ -174,9 +178,13 @@ These trends suggest that while both configurations are capable of learning, sta
 
 #### Step Penalty Reward
 
+##### Learning Rate - 0.1
+
 <p align="center">
   <img src="assets/step_lr0.1.png" width="83%" style="margin-left: 9%;">
 </p>
+
+##### Learning Rate - 0.5
 
 <p align="center">
   <img src="assets/step_lr0.5.png" width="70%">
