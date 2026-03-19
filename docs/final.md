@@ -210,7 +210,7 @@ This tradeoff reflects a fundamental aspect of reinforcement learning, where lar
 
 ### Main Trade Offs
 
-![Overall Model Comparison](assets/table_comparison.png)
+<img src="assets/table_comparison.png" width="70%"/>
 
 The results reveal a clear tradeoff between accuracy and efficiency across the two reward configurations. The sparse reward model achieved a higher success rate (32.5%), indicating that it more reliably learned how to reach the objective. This suggests that, despite slower learning and longer episodes, the agent was able to develop a more effective and goal-oriented policy.
 
