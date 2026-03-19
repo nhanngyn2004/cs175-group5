@@ -158,16 +158,10 @@ We next evaluate how learning improves performance under different reward struct
 
 #### Sparse Reward
 
-<p align="center">
-  <b>Sparse Reward</b><br><br>
 
-  <img src="assets/spare_lr0.1.png" width="45%" />
-  <img src="assets/sparse_lr0.5.png" width="45%" /><br>
+![Sparse Reward α=0.1](assets/spare_lr0.1.png)
 
-  <span>α = 0.1</span>
-  <span style="margin-left: 38%;">α = 0.5</span>
-</p>
-
+<img src="assets/sparse_lr0.5.png" width="70%">
 
 Under the sparse reward configuration, both learning rates show improvement over time, as the agent gradually learns to reach the diamond. The α = 0.1 setting produces smoother and more stable learning, while α = 0.5 exhibits greater variability due to larger update steps.
 
@@ -177,15 +171,9 @@ These trends suggest that while both configurations are capable of learning, sta
 
 #### Step Penalty Reward
 
-<p align="center">
-  <b>Step Penalty Reward</b><br><br>
+![Step Penalty α=0.1](assets/step_lr0.1.png)
 
-  <img src="assets/step_lr0.1.png" width="45%" />
-  <img src="assets/step_lr0.5.png" width="45%" /><br>
-
-  <span>α = 0.1</span>
-  <span style="margin-left: 38%;">α = 0.5</span>
-</p>
+<img src="assets/step_lr0.5.png" width="70%">
 
 Under the step-penalty configuration, performance is generally lower and more inconsistent. While the agent receives more frequent feedback, the negative reward at each step encourages shorter episodes, often leading to premature failure rather than successful completion of the task.
 
