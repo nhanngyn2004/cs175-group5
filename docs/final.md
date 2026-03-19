@@ -171,9 +171,13 @@ These trends suggest that while both configurations are capable of learning, sta
 
 #### Step Penalty Reward
 
-![Step Penalty α=0.1](assets/step_lr0.1.png)
+<p align="center">
+  <img src="assets/step_lr0.1.png" width="70%">
+</p>
 
-<img src="assets/step_lr0.5.png" width="85%">
+<p align="center">
+  <img src="assets/step_lr0.5.png" width="70%">
+</p>
 
 Under the step-penalty configuration, performance is generally lower and more inconsistent. While the agent receives more frequent feedback, the negative reward at each step encourages shorter episodes, often leading to premature failure rather than successful completion of the task.
 
