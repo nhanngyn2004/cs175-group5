@@ -128,8 +128,101 @@ The step penalty was intended to discourage slow, meandering behavior. However, 
 
 ## Evaluation 
 
+### Evaluation Setup
 
+We evaluate our agent under different reward structures and learning rates to understand how these factors influence performance and behavior. Each experiment is run for 200 episodes using a fixed random seed. We compare a baseline agent with no learning, as well as Q-learning agents trained under sparse reward and step-penalty reward configurations with learning rates α = 0.1 and α = 0.5.
 
+Performance is measured using total reward per episode and episode length, allowing us to capture both task success and behavioral differences across configurations. These metrics provide both a quantitative view of performance and a qualitative understanding of how the agent behaves under different training conditions.
+
+---
+
+### Baseline Performance
+
+We first examine the behavior of a baseline agent with no learning.
+
+![Baseline Performance](assets/baseline_plots.png)
+
+The baseline agent performs poorly, with highly inconsistent rewards and frequent failures. This establishes a reference point, showing that without learning, the agent is unable to consistently reach the goal and performs close to random behavior.
+
+This comparison is important because it confirms that any improvements observed in later experiments are due to learning rather than chance. It also highlights the difficulty of the environment, as even random exploration rarely leads to successful outcomes.
+
+---
+
+### Learning Performance Across Configurations
+
+Smith (2017) uses an initial learning rate of 0.1 as a baseline in evaluating training performance across multiple architectures, treating it as a standard reference point for comparison against alternative learning rate strategies. The study demonstrates that learning rate is a highly sensitive hyperparameter and that performance can vary significantly as it changes. Because 0.1 is used in the literature as a conventional baseline value for iterative optimization, we adopt α = 0.1 as a stable and principled reference point in our experiments before evaluating more aggressive alternatives such as α = 0.5. 
+
+Source: Smith, Leslie N. "Cyclical learning rates for training neural networks." 2017 IEEE winter conference on applications of computer vision (WACV). IEEE, 2017.
+
+We next evaluate how learning improves performance under different reward structures and learning rates.
+
+#### Sparse Reward
+
+![Sparse Reward α=0.1](assets/spare_lr0.1.png)
+
+![Sparse Reward α=0.5](assets/sparse_lr0.5.png)
+
+Under the sparse reward configuration, both learning rates show improvement over time, as the agent gradually learns to reach the diamond. The α = 0.1 setting produces smoother and more stable learning, while α = 0.5 exhibits greater variability due to larger update steps.
+
+These trends suggest that while both configurations are capable of learning, stability plays a critical role in long-term performance. The smoother curves observed with α = 0.1 indicate more consistent policy improvement, whereas α = 0.5 reacts more strongly to individual experiences, leading to fluctuations in performance.
+
+---
+
+#### Step Penalty Reward
+
+![Step Penalty α=0.1](assets/step_lr0.1.png)
+
+![Step Penalty α=0.5](assets/step_lr0.5.png)
+
+Under the step-penalty configuration, performance is generally lower and more inconsistent. While the agent receives more frequent feedback, the negative reward at each step encourages shorter episodes, often leading to premature failure rather than successful completion of the task.
+
+This indicates that more frequent feedback does not necessarily improve learning outcomes. Instead, the added penalty shifts the objective toward minimizing time steps rather than maximizing success, which can lead to unintended and suboptimal behaviors.
+
+---
+
+### Episode Length Analysis
+
+To better understand behavioral differences, we compare episode lengths across reward structures.
+
+![Episode Length Comparison](assets/episode_lengths.png)
+
+Episodes under the sparse reward configuration tend to be longer, reflecting more exploration before success or failure. In contrast, episodes under the step-penalty configuration are significantly shorter, indicating that the agent is incentivized to terminate episodes quickly.
+
+Importantly, shorter episodes do not necessarily indicate better performance. In this case, they often correspond to the agent falling off the platform early rather than efficiently reaching the goal. This difference highlights how the reward function directly influences the agent’s strategy, leading to more aggressive but less reliable behavior under step penalties.
+
+---
+
+### Learning Rate Effects
+
+Across both reward settings, the learning rate plays a key role in stability. The lower learning rate (α = 0.1) results in more consistent and stable performance, while α = 0.5 leads to faster but more volatile learning.
+
+This tradeoff reflects a fundamental aspect of reinforcement learning, where larger updates can accelerate learning but reduce stability, especially in environments with stochastic transitions. As a result, α = 0.1 provides more reliable improvement over time, even if it learns more slowly in the early stages.
+
+---
+
+### Failure Modes
+
+Despite improvements in learning, the agent exhibits several consistent failure modes. In many episodes, the agent falls off the platform near the goal, suggesting that it has learned a risky but direct policy. Under the step-penalty configuration, the agent frequently terminates episodes early, prioritizing shorter trajectories over successful completion.
+
+These failure cases demonstrate that the agent’s learned policy is sensitive to small changes in state and may not generalize well across different situations. This indicates that the agent often learns locally optimal strategies that do not fully align with the desired objective.
+
+---
+
+### Limitations
+
+Our evaluation is limited by the use of a single random seed and a relatively small number of training episodes. Reinforcement learning is inherently stochastic, and results may vary across runs.
+
+Additionally, the tabular Q-learning approach used in this project does not scale well to larger or more complex environments. These limitations suggest that further experimentation, including multiple seeds and more advanced methods, would be needed to draw stronger conclusions.
+
+---
+
+### Overall Insights
+
+Taken together, our results show that reward design has a greater impact on agent behavior than learning rate alone. While tuning the learning rate affects stability, the choice of reward function fundamentally shapes the strategy learned by the agent.
+
+The sparse reward setting, although more challenging, ultimately leads to more reliable success once the agent discovers an effective strategy. In contrast, the step-penalty setting encourages faster but riskier behavior, often resulting in premature failure.
+
+Overall, the agent is able to learn a policy that improves performance over the baseline, but does not achieve fully stable or optimal behavior within the given training horizon. These findings highlight the importance of carefully designing reward functions in reinforcement learning tasks.
 
 
 
