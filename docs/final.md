@@ -3,6 +3,8 @@ layout: default
 title: Final Report
 ---
 
+Video Link: https://www.youtube.com/watch?v=B_JGoe0JvAA
+
 ## Project Summary
 
 Reinforcement learning is often evaluated purely on final performance. Did the agent win or not? This project takes a different approach. Rather than building the strongest possible agent, our goal is to understand how specific design choices shape the way an agent learns. We use Project Malmo, a platform developed by Microsoft Research that places AI agents inside the Minecraft game engine, as a controlled and repeatable testbed for studying these learning dynamics.
